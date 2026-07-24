@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Menü &amp; Besin Değerleri | Marka Döner</title>
+<meta name="description" content="Marka Döner menüsü — kalori ve besin değerleriyle birlikte.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,800;1,9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --char:#1c1310; --char-2:#241a15; --cream:#fbf1e1; --cream-dim:#e5d5bb;
+    --gold:#e8a23a; --gold-2:#f3c064; --ember:#c8461c; --line:rgba(251,241,225,0.12);
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--char);color:var(--cream);font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;}
+  h1,h2,.display{font-family:'Fraunces',serif;font-weight:800;letter-spacing:-0.01em;}
+  a{color:inherit;}
+  .wrap{max-width:960px;margin:0 auto;padding:0 24px;}
+  nav{
+    position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;
+    padding:16px 24px;background:rgba(28,19,16,0.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);
+  }
+  .brand{display:flex;align-items:center;gap:10px;text-decoration:none;}
+  .crown-mk{position:relative;width:40px;height:40px;flex-shrink:0;}
+  .crown-mk svg{position:absolute;top:-11px;left:5px;width:30px;height:21px;transform:rotate(-16deg);}
+  .mk-letters{
+    width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(155deg,var(--gold-2),var(--ember));color:#1c1310;
+    font-family:'Fraunces',serif;font-weight:800;font-size:15px;
+  }
+  .brand-name{font-family:'Fraunces',serif;font-weight:800;font-size:18px;}
+  .back-link{font-size:13.5px;color:var(--cream-dim);text-decoration:none;}
+  .back-link:hover{color:var(--gold-2);}
+
+  header.top{padding:56px 0 20px;text-align:center;}
+  .eyebrow{color:var(--gold-2);font-weight:700;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:12px;}
+  header.top h1{font-size:clamp(30px,5vw,44px);margin:0 0 14px;}
+  header.top p{color:var(--cream-dim);font-size:15px;max-width:520px;margin:0 auto;}
+  .nutri-disclaimer{
+    max-width:640px;margin:20px auto 0;font-size:12.5px;color:var(--cream-dim);
+    background:var(--char-2);border:1px solid var(--line);border-radius:12px;padding:14px 18px;
+  }
+
+  section{padding:36px 0 56px;}
+  .cat-title{font-size:22px;margin:0 0 18px;color:var(--gold-2);border-bottom:1px solid var(--line);padding-bottom:10px;}
+  .item-grid{display:flex;flex-direction:column;gap:14px;margin-bottom:48px;}
+  .item{
+    display:grid;grid-template-columns:1.4fr auto;gap:16px;align-items:center;
+    background:var(--char-2);border:1px solid var(--line);border-radius:14px;padding:18px 22px;
+  }
+  @media (max-width:640px){ .item{grid-template-columns:1fr;} }
+  .item h3{margin:0 0 4px;font-size:16.5px;color:var(--cream);font-weight:600;}
+  .item p{margin:0 0 10px;font-size:13.5px;color:var(--cream-dim);line-height:1.5;}
+  .item .price{font-family:'Fraunces',serif;font-weight:700;color:var(--gold-2);font-size:16px;}
+  .nutri-row{display:flex;gap:14px;flex-wrap:wrap;}
+  .nutri-pill{
+    font-size:11.5px;font-weight:600;color:var(--char);background:var(--cream-dim);
+    padding:4px 10px;border-radius:999px;white-space:nowrap;
+  }
+  .nutri-pill.kcal{background:var(--gold-2);}
+  .item-right{text-align:right;}
+  @media (max-width:640px){ .item-right{text-align:left;} }
+
+  footer{border-top:1px solid var(--line);padding:32px 0;text-align:center;font-size:12.5px;color:var(--cream-dim);}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="brand" href="index.html">
+    <span class="crown-mk">
+      <svg viewBox="0 0 64 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4 36 L4 16 L18 28 L32 8 L46 28 L60 16 L60 36 Z" fill="#f3c064" stroke="#a8360f" stroke-width="2" stroke-linejoin="round"/>
+        <circle cx="4" cy="14" r="4" fill="#e8a23a"/><circle cx="32" cy="6" r="4" fill="#e8a23a"/><circle cx="60" cy="14" r="4" fill="#e8a23a"/>
+      </svg>
+      <span class="mk-letters">MK</span>
+    </span>
+    <span class="brand-name">Marka Döner</span>
+  </a>
+  <a class="back-link" href="index.html">← Ana Sayfaya Dön</a>
+</nav>
+
+<header class="top">
+  <div class="wrap">
+    <div class="eyebrow">Menümüz</div>
+    <h1>Kalori ve Besin Değerleriyle Menü</h1>
+    <p>QR kodu okutarak buraya ulaştınız. Fiyatlar temsilidir, güncel fiyat için bizi arayabilirsiniz: (0312) 375 10 11.</p>
+    <div class="nutri-disclaimer">
+      Besin değerleri, benzer ürünler için bilinen ortalama değerlere göre <b>yaklaşık</b> olarak verilmiştir; porsiyon büyüklüğüne ve hazırlanışa göre değişebilir. Kesin değerler için lütfen işletmemizle iletişime geçin.
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+
+    <h2 class="cat-title">Dönerler</h2>
+    <div class="item-grid">
+      <div class="item">
+        <div><h3>Et Döner (Ekmek Arası)</h3><p>Günlük taze dana eti, ustanın kesimiyle.</p>
+          <div class="nutri-row"><span class="nutri-pill kcal">~550 kcal</span><span class="nutri-pill">32g protein</span><span class="nutri-pill">45g karbonhidrat</span><span class="nutri-pill">25g yağ</span></div>
+        </div>
+        <div class="item-right"><span class="price">XX ₺</span></div>
+      </div>
+      <div class="item">
+        <div><h3>Tavuk Döner (Ekmek Arası)</h3><p>Marine edilmiş, közde pişmiş tavuk.</p>
+          <div class="nutri-row"><span class="nutri-pill kcal">~430 kcal</span><span class="nutri-pill">30g protein</span><span class="nutri-pill">42g karbonhidrat</span><span class="nutri-pill">14g yağ</span></div>
+        </div>
+        <div class="item-right"><span class="price">XX ₺</span></div>
+      </div>
+      <div class="item">
+        <div><h3>Et Dürüm</h3><p>İnce lavaş, közlenmiş sebze eşliğinde.</p>
+          <div class="nutri-row"><span class="nutri-pill kcal">~480 kcal</span><span class="nutri-pill">28g protein</span><span class="nutri-pill">40g karbonhidrat</span><span class="nutri-pill">20g yağ</span></div>
+        </div>
+        <div class="item-right"><span class="price">XX ₺</span></div>
+      </div>
+      <div class="item">
+        <div><h3>Tavuk Dürüm</h3><p>Bol soslu, hafif acılı seçenek mevcut.</p>
+          <div class="nutri-row"><span class="nutri-pill kcal">~400 kcal</span><span class="nutri-pill">26g protein</span><span class="nutri-pill">38g karbonhidrat</span><span class="nutri-pill">12g yağ</span></div>
+        </div>
+        <div class="item-right"><span class="price">XX ₺</span></div>
+      </div>
+      <div class="item">
+        <div><h3>İskender</h3><p>Tereyağlı domates sosu ve yoğurt ile.</p>
+          <div class="nutri-row"><span class="nutri-pill kcal">~650 kcal</span><span class="nutri-pill">35g protein</span><span class="nutri-pill">55g karbonhidrat</span><span class="nutri-pill">30g yağ</span></div>
+        </div>
+        <div class="item-right"><span class="price">XX ₺</span></div>
+      </div>
+      <div class="item">
+        <div><h3>Pilav Üstü Döner</h3><p>Tercihe göre et veya tavuk.</p>
+          <div class="nutri-row"><span class="nutri-pill kcal">~600 kcal</span><span class="nutri-pill">30g protein</span><span class="nutri-pill">60g karbonhidrat</span><span class="nutri-pill">22g yağ</span></div>
+        </div>
+        <div class="item-right"><span class="price">XX ₺</span></div>
+      </div>
+    </div>
+
+    <h2 class="cat-title">Pide &amp; Lahmacun</h2>
+    <div class="item-grid">
+      <div class="item">
+        <div><h3>Kaşarlı Pide</h3><p>Taş fırında, bol kaşarlı.</p>
+          <div class="nutri-row"><span class="nutri-pill kcal">~520 kcal</span><span class="nutri-pill">20g protein</span><span class="nutri-pill">60g karbonhidrat</span><span class="nutri-pill">20g yağ</span></div>
+        </div>
+        <div class="item-right"><span class="price">XX ₺</span></div>
+      </div>
+      <div class="item">
+        <div><h3>Kıymalı Pide</h3><p>Günlük hazırlanan kıyma harcı ile.</p>
+          <div class="nutri-row"><span class="nutri-pill kcal">~500 kcal</span><span class="nutri-pill">22g protein</span><span class="nutri-pill">55g karbonhidrat</span><span class="nutri-pill">18g yağ</span></div>
+        </div>
+        <div class="item-right"><span class="price">XX ₺</span></div>
+      </div>
+      <div class="item">
+        <div><h3>Karışık Pide</h3><p>Kaşar, kıyma ve sucuk bir arada.</p>
+          <div class="nutri-row"><span class="nutri-pill kcal">~560 kcal</span><span class="nutri-pill">24g protein</span><span class="nutri-pill">58g karbonhidrat</span><span class="nutri-pill">24g yağ</span></div>
+        </div>
+        <div class="item-right"><span class="price">XX ₺</span></div>
+      </div>
+      <div class="item">
+        <div><h3>Lahmacun (adet)</h3><p>İnce hamur, günlük iç harcı.</p>
+          <div class="nutri-row"><span class="nutri-pill kcal">~250 kcal</span><span class="nutri-pill">10g protein</span><span class="nutri-pill">30g karbonhidrat</span><span class="nutri-pill">9g yağ</span></div>
+        </div>
+        <div class="item-right"><span class="price">XX ₺</span></div>
+      </div>
+    </div>
+
+    <h2 class="cat-title">Yanlar &amp; Mezeler</h2>
+    <div class="item-grid">
+      <div class="item">
+        <div><h3>Çoban Salata</h3><p>Mevsim sebzeleriyle taze hazırlanır.</p>
+          <div class="nutri-row"><span class="nutri-pill kcal">~90 kcal</span><span class="nutri-pill">2g protein</span><span class="nutri-pill">10g karbonhidrat</span><span class="nutri-pill">5g yağ</span></div>
+        </div>
+        <div class="item-right"><span class="price">XX ₺</span></div>
+      </div>
+      <div class="item">
+        <div><h3>Ezme</h3><p>Acılı, közlenmiş biber ile.</p>
+          <div class="nutri-row"><span class="nutri-pill kcal">~70 kcal</span><span class="nutri-pill">2g protein</span><span class="nutri-pill">9g karbonhidrat</span><span class="nutri-pill">3g yağ</span></div>
+        </div>
+        <div class="item-right"><span class="price">XX ₺</span></div>
+      </div>
+      <div class="item">
+        <div><h3>Patates Kızartması</h3><p>Taze kesim, çıtır kızartma.</p>
+          <div class="nutri-row"><span class="nutri-pill kcal">~350 kcal</span><span class="nutri-pill">4g protein</span><span class="nutri-pill">42g karbonhidrat</span><span class="nutri-pill">18g yağ</span></div>
+        </div>
+        <div class="item-right"><span class="price">XX ₺</span></div>
+      </div>
+      <div class="item">
+        <div><h3>Cacık</h3><p>Ev yapımı, ferahlatıcı.</p>
+          <div class="nutri-row"><span class="nutri-pill kcal">~80 kcal</span><span class="nutri-pill">4g protein</span><span class="nutri-pill">6g karbonhidrat</span><span class="nutri-pill">4g yağ</span></div>
+        </div>
+        <div class="item-right"><span class="price">XX ₺</span></div>
+      </div>
+    </div>
+
+    <h2 class="cat-title">İçecek &amp; Tatlı</h2>
+    <div class="item-grid">
+      <div class="item">
+        <div><h3>Ayran</h3><p>Ev yapımı tarif.</p>
+          <div class="nutri-row"><span class="nutri-pill kcal">~110 kcal</span><span class="nutri-pill">5g protein</span><span class="nutri-pill">8g karbonhidrat</span><span class="nutri-pill">6g yağ</span></div>
+        </div>
+        <div class="item-right"><span class="price">XX ₺</span></div>
+      </div>
+      <div class="item">
+        <div><h3>Kola / Gazoz</h3><p>Soğuk servis.</p>
+          <div class="nutri-row"><span class="nutri-pill kcal">~140 kcal</span><span class="nutri-pill">0g protein</span><span class="nutri-pill">35g karbonhidrat</span><span class="nutri-pill">0g yağ</span></div>
+        </div>
+        <div class="item-right"><span class="price">XX ₺</span></div>
+      </div>
+      <div class="item">
+        <div><h3>Künefe</h3><p>Sıcak servis, dondurma ile.</p>
+          <div class="nutri-row"><span class="nutri-pill kcal">~450 kcal</span><span class="nutri-pill">8g protein</span><span class="nutri-pill">55g karbonhidrat</span><span class="nutri-pill">22g yağ</span></div>
+        </div>
+        <div class="item-right"><span class="price">XX ₺</span></div>
+      </div>
+      <div class="item">
+        <div><h3>Sütlaç</h3><p>Fırında kavrulmuş, günlük.</p>
+          <div class="nutri-row"><span class="nutri-pill kcal">~280 kcal</span><span class="nutri-pill">6g protein</span><span class="nutri-pill">45g karbonhidrat</span><span class="nutri-pill">8g yağ</span></div>
+        </div>
+        <div class="item-right"><span class="price">XX ₺</span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  Marka Döner — Karapürçek, Altındağ/Ankara · (0312) 375 10 11
+</footer>
+
+</body>
+</html>
