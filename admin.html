@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marka Döner · Yönetim Paneli</title>
+<meta name="robots" content="noindex, nofollow">
+<style>
+  :root{ --char:#1c1310; --char-2:#241a15; --cream:#fbf1e1; --cream-dim:#e5d5bb; --gold:#e8a23a; --ember:#c8461c; --line:rgba(251,241,225,0.14); }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--char);color:var(--cream);font-family:Inter,system-ui,sans-serif;padding:32px;}
+  h1{font-size:22px;margin:0 0 4px;}
+  p.sub{color:var(--cream-dim);font-size:13.5px;margin:0 0 28px;}
+  .authbar{display:flex;gap:10px;margin-bottom:28px;flex-wrap:wrap;}
+  .authbar input{flex:1;min-width:220px;background:var(--char-2);border:1px solid var(--line);color:var(--cream);padding:10px 12px;border-radius:8px;}
+  .authbar button{background:linear-gradient(135deg,#f3c064,var(--ember));color:#1c1310;border:none;padding:10px 20px;border-radius:8px;font-weight:700;cursor:pointer;}
+  section{margin-bottom:40px;}
+  h2{font-size:16px;color:var(--gold);border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:14px;}
+  table{width:100%;border-collapse:collapse;font-size:13.5px;}
+  th, td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top;}
+  th{color:var(--cream-dim);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:0.04em;}
+  select{background:var(--char-2);color:var(--cream);border:1px solid var(--line);padding:5px 8px;border-radius:6px;}
+  .empty, .error{color:var(--cream-dim);font-size:13.5px;}
+  .error{color:#e08a72;}
+  .status-pending{color:var(--gold);}
+  .status-confirmed{color:#9db97a;}
+  .status-cancelled{color:#e08a72;}
+</style>
+</head>
+<body>
+
+  <h1>Marka Döner — Yönetim Paneli</h1>
+  <p class="sub">Web sitesinden gelen rezervasyonları görüntüleyin. Bu sayfa arama motorlarına kapalıdır ama halka açık bir adres üzerinde durur — bağlantısını sadece güvendiğiniz kişilerle paylaşın.</p>
+
+  <div class="authbar">
+    <input type="password" id="admin-key" placeholder="Yönetici anahtarı (ADMIN_API_KEY)">
+    <button id="load-btn">Yükle</button>
+  </div>
+
+  <section>
+    <h2>Rezervasyonlar</h2>
+    <div id="reservations-wrap" class="empty">Yüklemek için yukarıya yönetici anahtarınızı girip "Yükle" butonuna basın.</div>
+  </section>
+
+<script>
+  function adminKey(){ return document.getElementById('admin-key').value; }
+
+  async function fetchJSON(path){
+    const res = await fetch(path, { headers: { 'x-admin-key': adminKey() } });
+    if (!res.ok) {
+      const body = await res.json().catch(() => ({}));
+      throw new Error(body.error || ('HTTP ' + res.status));
+    }
+    return res.json();
+  }
+
+  function escapeHtml(str){
+    const div = document.createElement('div');
+    div.textContent = str ?? '';
+    return div.innerHTML;
+  }
+
+  function renderReservations(rows){
+    const wrap = document.getElementById('reservations-wrap');
+    if (!rows.length) { wrap.innerHTML = '<p class="empty">Henüz rezervasyon yok.</p>'; return; }
+    wrap.innerHTML = `<table>
+      <thead><tr><th>Tarih</th><th>Ad Soyad</th><th>Telefon</th><th>Kişi</th><th>Saat</th><th>Not</th><th>Durum</th></tr></thead>
+      <tbody>${rows.map(r => `
+        <tr>
+          <td>${r.date}</td>
+          <td>${escapeHtml(r.name)}</td>
+          <td>${escapeHtml(r.phone)}</td>
+          <td>${r.guests}</td>
+          <td>${r.time}</td>
+          <td>${escapeHtml(r.note || '—')}</td>
+          <td>
+            <select data-id="${r.id}" class="status-select status-${r.status}">
+              <option value="pending" ${r.status==='pending'?'selected':''}>Bekliyor</option>
+              <option value="confirmed" ${r.status==='confirmed'?'selected':''}>Onaylandı</option>
+              <option value="cancelled" ${r.status==='cancelled'?'selected':''}>İptal</option>
+            </select>
+          </td>
+        </tr>`).join('')}
+      </tbody></table>`;
+
+    wrap.querySelectorAll('.status-select').forEach(sel => {
+      sel.addEventListener('change', async () => {
+        const id = sel.getAttribute('data-id');
+        try {
+          const res = await fetch('/api/reservations/' + id, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json', 'x-admin-key': adminKey() },
+            body: JSON.stringify({ status: sel.value })
+          });
+          if (!res.ok) throw new Error('Güncellenemedi');
+          sel.className = 'status-select status-' + sel.value;
+        } catch (e) {
+          alert('Durum güncellenemedi: ' + e.message);
+        }
+      });
+    });
+  }
+
+  document.getElementById('load-btn').addEventListener('click', async () => {
+    const rWrap = document.getElementById('reservations-wrap');
+    rWrap.innerHTML = 'Yükleniyor…';
+    try {
+      const reservations = await fetchJSON('/api/reservations');
+      renderReservations(reservations);
+    } catch (e) {
+      rWrap.innerHTML = `<p class="error">Yüklenemedi: ${escapeHtml(e.message)}. Anahtarı kontrol edin.</p>`;
+    }
+  });
+</script>
+
+</body>
+</html>
